@@ -44,7 +44,7 @@ $this->title = 'Qual Events';
                         <i class="bi bi-geo-alt px-2"></i>
                             <?= $event['venue'] ?>
                         </p>
-                        <a href="<?= Url::to(['site/ticket', 'cardName' => $event['name']]) ?>" class="btn btn-primary mr-5">
+                        <a href="<?= Url::to(['events/view', 'name' => $event['name']]) ?>" class="btn btn-primary mr-5">
                                 Details
                             </a>
                     </div>

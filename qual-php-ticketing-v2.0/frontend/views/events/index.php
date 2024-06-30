@@ -44,7 +44,7 @@ use yii\widgets\Pjax;
                         </h6>
                         <p class="card-text d-flex justify-content-between ">
                             <?= $event['venue'] ?>
-                            <a href="<?= Url::to(['view', 'name' => $event['name']]) ?>" class="btn btn-primary">
+                            <a href="<?= Url::to(['events/view', 'name' => $event['name']]) ?>" class="btn btn-primary">
                                 Book now
                             </a>
                         </p>

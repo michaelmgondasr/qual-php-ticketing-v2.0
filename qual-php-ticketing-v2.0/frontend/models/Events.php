@@ -1,8 +1,11 @@
 <?php
 
 namespace app\models;
-use common\models\User;
 
+use common\models\User;
+use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
+use yii\helpers\Url;
 use Yii;
 
 /**
@@ -16,17 +19,20 @@ use Yii;
  * @property int $created_by
  * @property string $created_at
  * @property string $updated_at
- * @property object $image
  * @property string $start_time
  * @property string $pricing
  * @property string $ticket_price
-
+ * @property  mixed $image
  *
  * @property User $createdBy
  * @property Tickets[] $tickets
  */
-class Events extends \yii\db\ActiveRecord
+class Events extends ActiveRecord
 {
+    /**
+     * @var UploadedFile
+     */
+
     /**
      * {@inheritdoc}
      */
@@ -41,7 +47,7 @@ class Events extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'description', 'date', 'venue', 'created_by', 'image', 'start_time'], 'required'],
+            [['name', 'description', 'date', 'venue', 'created_by', 'start_time'], 'required'],
             [['description', 'pricing'], 'string'],
             [['date', 'created_at', 'updated_at', 'start_time'], 'safe'],
             [['created_by'], 'integer'],
@@ -52,7 +58,7 @@ class Events extends \yii\db\ActiveRecord
                 return $('#pricing-select').val() === 'premium';
             }"],
             [['ticket_price'], 'number'],
-            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+            ['image', 'file'], // extension=>'jpg,pnf,pdf'
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
         ];
     }
@@ -74,15 +80,15 @@ class Events extends \yii\db\ActiveRecord
             'image' => 'Image',
             'start_time' => 'Start Time',
             'pricing' => 'Pricing',
-            'ticket price' => 'Price of ticket',
-
+            'ticket_price' => 'Price of ticket',
         ];
     }
 
+    
     /**
      * Gets query for [[CreatedBy]].
      *
-     * @return \yii\db\ActiveQuery|UserQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getCreatedBy()
     {
@@ -92,7 +98,7 @@ class Events extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Tickets]].
      *
-     * @return \yii\db\ActiveQuery|TicketsQuery
+     * @return \yii\db\ActiveQuery
      */
     public function getTickets()
     {

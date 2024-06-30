@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 echo Html::button('Default', ['class' => 'btn btn-default']);
 echo Html::button('Primary', ['class' => 'btn btn-primary']);
@@ -214,6 +215,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+<?php echo Yii::getAlias('@webroot/images/events/') . '---------'; ?>
+<?php echo Url::to('@web/images') ; ?>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

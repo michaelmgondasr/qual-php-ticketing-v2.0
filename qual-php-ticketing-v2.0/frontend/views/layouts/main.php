@@ -30,7 +30,7 @@ AppAsset::register($this);
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
 
-<header>
+<header class="mb-5">
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
@@ -41,12 +41,16 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Events', 'url' => ['/events/index']],
         ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Events', 'url' => ['/site/events']],
+
 
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+    }
+    if (!Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'My tickets', 'url' => ['/tickets/index']];
     }
 
     echo Nav::widget([

@@ -6,15 +6,17 @@ use yii\helpers\Html;
 /** @var app\models\Events $model */
 
 $this->title = 'Create Events';
-$this->params['breadcrumbs'][] = ['label' => 'Events', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="events-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="d-flex justify-content-center   mt-3">
+    <?php
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+    $this->params['breadcrumbs'][] = ['label' => 'Events', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
+    ?>
+    <div class="events-create ">
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+    </div>
 </div>

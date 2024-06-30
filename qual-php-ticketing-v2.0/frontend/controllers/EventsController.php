@@ -65,41 +65,35 @@ class EventsController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Events model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
+
+
     public function actionCreate()
     {
         $model = new Events();
-    
+
         if ($model->load(Yii::$app->request->post())) {
-            // Assign the uploaded file to the model attribute
+
             $model->image = UploadedFile::getInstance($model, 'image');
-    
-            if ($model->validate()) {
-                // Save the uploaded file to the desired location
-                if ($model->image) {
-                    $uploadPath = Yii::getAlias('@webroot/uploads/events/');
-                    $model->image->saveAs($uploadPath . $model->image->baseName . '.' . $model->image->extension);
-                    // Save the filename to the database field
-                    $model->image = $model->image->baseName . '.' . $model->image->extension;
-                }
-    
-                // Set other attributes and save the model
-                $model->created_by = Yii::$app->user->id; // Example: set other attributes
-                if ($model->save()) {
-                    // Handle success
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
+
+            $fileName = time() . '.' . $model->image->extension;
+
+            $model->image->saveAs('images/' . $fileName);
+
+            $model->image = $fileName;
+
+            // Set the created_by attribute
+            $model->created_by = Yii::$app->user->id;
+
+            $model->save();
+            return $this->redirect(['view', 'name' => $model->name]);
         }
-    
+
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-    
+
+
 
     /**
      * Updates an existing Events model.
